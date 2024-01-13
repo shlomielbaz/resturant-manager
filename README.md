@@ -7,5 +7,6 @@
 The resturant view simulates the tables in a restaurant, the disabled tables (buttons 8 and 9) shows that, this two table are occupied by orders
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/43260179-bed8-4c65-b898-503eab856fb1">
 <br />
+The kitchen view ilustrate the screen for the kitchen workes, the dished in order are displyed in order to inform the shef about the dishes in order
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/7c76ed00-f7cf-4f4f-8dc0-25a5c56c8936">
 
