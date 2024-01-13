@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h3>Edit Order</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <h4>Dishes</h4>
+                            <select style="height: 300px; width: 250px;" multiple id="left-select">
+                                <% dishes.forEach((dish)=>{%>
+                                    <option value="<%=dish.id%>" data-price="<%=dish.price%>">
+                                        <%=dish.name%>, <%=dish.price%>
+                                    </option>
+                                    <%});%>
+                            </select>
+                        </td>
+                        <td>
+                            <button id="left-button" disabled>&#10095;&#10095;</button>
+                            <br />
+                            <button id="right-button" disabled>&#10094;&#10094;</button>
+                        </td>
+                        <td>
+                            <h4>Dishes In Order</h4>
+                            <select style="height: 300px; width: 250px;" multiple id="right-select">
+                                <% order.dishes.forEach((dish)=>{%>
+                                    <option value="<%=dish.id%>">
+                                        <%=dish.name%>, <%=dish.price%>
+                                    </option>
+                                    <%});%>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Change Status
+                            <select name="status" id="status-select">
+                                <option<%=order.status=='Create' ? ' disabled selected' : '' %>>Create</option>
+                                    <option<%=order.status=='Ready' ? ' disabled selected' : '' %>>Ready</option>
+                                        <option<%=order.status=='Processed' ? ' disabled selected' : '' %>>Processed
+                                            </option>
+                                            <option<%=order.status=='Served' ? ' disabled  selected' : '' %>>Served
+                                                </option>
+                                                <option<%=order.status=='Done' ? ' disabled selected' : '' %>>Done
+                                                    </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Comments
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <textarea name="comments" id="comments-text" cols="60"
+                                rows="5"><%=order.commants%></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Order Total: <input name="total-input" id="total-input" type="number"
+                                value="<%=order.total || 0%>" readonly />
+                        </td>
+                    </tr>
+                    <tr colspan="3">
+                        <td>
+                            <button id="submit-button">Save Changes</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script nonce="8IBTHwOdqNKAWeKl7plt8g==">
+        const leftSelect = document.querySelector('#left-select');
+        const leftButton = document.querySelector('#left-button');
+        const rightSelect = document.querySelector('#right-select');
+        const rightButton = document.querySelector('#right-button');
+        const submitButton = document.querySelector('#submit-button');
+        const statusSelect = document.querySelector('#status-select');
+        const totalInput = document.querySelector('#total-input');
+        const commentsText = document.querySelector('#comments-text');
+
+
+
+        leftSelect.addEventListener('change', function (event) {
+            event.preventDefault();
+
+            leftButton.removeAttribute('disabled')
+        }, false);
+
+        rightSelect.addEventListener('change', function (event) {
+            event.preventDefault();
+
+            rightButton.removeAttribute('disabled')
+        }, false);
+
+        leftButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const options = leftSelect && leftSelect.options;
+
+            for (let i = 0; i < options.length; i++) {
+                const o = options.item(i);
+                if (o.selected) {
+                    const option = document.createElement('option');
+                    option.text = o.text;
+                    option.value = o.value;
+
+                    const price = parseFloat(o.getAttribute('data-price'));
+                    option.setAttribute('data-price', price);
+                    totalInput.value = parseFloat(totalInput.value) + price;
+                    rightSelect.appendChild(option);
+                }
+            }
+        }, false);
+
+        rightButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const options = rightSelect.options
+
+            for (let i = 0; i < options.length; i++) {
+                const option = options.item(i);
+                if (option.selected) {
+                    const price = parseFloat(option.getAttribute('data-price'));
+                    totalInput.value = parseFloat(totalInput.value) - price;
+                    rightSelect.remove(option);
+                }
+            }
+
+            for (let i = 0; i < rightSelect.options.length; i++) {
+                rightSelect.options.item(i).removeAttr("selected");
+            }
+        }, false);
+
+
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const dishes = [];
+            const options = rightSelect.options;
+
+            for (let i = 0; i < options.length; i++) {
+                const option = options.item(i);
+                dishes.push(option.value)
+            }
+
+            console.log()
+
+            fetch("/api/v1/orders/save", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: '<%=order.id%>',
+                    table: '<%=order.table%>',
+                    dishes: dishes,
+                    status: statusSelect.value,
+                    comments: commentsText.value,
+                    total: totalInput.value
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then((response) => response.json())
+                .then((order) => { location.href = '/orders/' + order.id });
+
+        }, false);
+    </script>
+</body>
+
+</html>

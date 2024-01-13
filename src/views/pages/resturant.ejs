@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <%- include('../partials/head'); %>
+  <style>
+    button {
+      width: 50px;
+      height: 50px;
+    }
+  </style>
 </head>
 <body class="container">
 
@@ -11,17 +17,47 @@
 
 <main>
   <div class="jumbotron">
-    <h1>Resturant</h1>
-    <button href="/orders/new/1">1</button>
-    <button href="/orders/new/2">2</button>
-    <button href="/orders/new/3">3</button>
-    <button href="/orders/new/4">4</button>
+    <h3>Resturant View</h3> 
+
+    <table>
+      <tbody>
+        <tr>
+          <% tables.forEach((table, index)=>{%> 
+
+            <% if(index>0 && index%5 == 0) {%>
+            </tr><tr>
+            <%}%> 
+            
+            <td><button value="<%=table.number%>"<%=table.isOccupied ? ' disabled' : ''%>><%=table.number%></button></td>
+            
+          <%});%> 
+        </tr>
+      </tbody>
+    </table>
   </div>
 </main>
 
 <footer>
   <%- include('../partials/footer'); %>
 </footer>
+
+<script nonce="8IBTHwOdqNKAWeKl7plt8g==">
+  document.querySelectorAll('button').forEach(input => input.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        fetch("/api/v1/orders/add", {
+          method: "POST",
+          body: JSON.stringify({
+            table: event.target.value
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+        .then((response) => response.json())
+        .then((order) => {location.replace('/orders/'.concat(order.id))});
+    }));
+</script>
 
 </body>
 </html>

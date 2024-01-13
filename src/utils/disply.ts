@@ -1,10 +1,11 @@
 import * as readline from "readline";
+import ICommand from "../interfaces/command.interface";
 
 export class Disply {
 
   private currentIndex = 0;
 
-  constructor(private title: string, private menuItems: string[]) {}
+  constructor(private title: string, private menuItems: ICommand[]) {}
 
   private colorText(text: string, color: string): string {
     const colorCodes: Record<string, string> = {
@@ -21,8 +22,8 @@ export class Disply {
     this.menuItems.forEach((item, i) =>
       console.log(
         i === this.currentIndex
-          ? this.colorText(`→ ${item}`, "green")
-          : `  ${item}`
+          ? this.colorText(`→ ${item.name}`, "green")
+          : `  ${item.name}`
       )
     );
   }
@@ -42,32 +43,45 @@ export class Disply {
   }
 
   async run(): Promise<{ selectedItem: string; text: string }> {
-    return new Promise(async (res) => {
+
+    return new Promise(async (resolve, reject) => {
+
       const handleKeyPress = async (str: string, key: readline.Key) => {
+        
         if (key.name === "up") {
           this.currentIndex =
             this.currentIndex > 0
               ? this.currentIndex - 1
               : this.menuItems.length - 1;
-        } else if (key.name === "down") {
+        } 
+        
+        else if (key.name === "down") {
           this.currentIndex =
             this.currentIndex < this.menuItems.length - 1
               ? this.currentIndex + 1
               : 0;
-        } else if (key.name === "return") {
-          process.stdin.setRawMode(false);
+        } 
+        
+        else if (key.name === "return") {
+          if (process.stdin.isTTY) {
+            process.stdin.setRawMode(false);
+          }
           process.stdin.removeListener("keypress", handleKeyPress);
+
           const text = await this.inputText(
             this.colorText(`2. PLEASE, ENTER ADDITIONAL INFORMATION: `, "blue")
           );
-          return res({ selectedItem: this.menuItems[this.currentIndex], text });
+
+          //return resolve({ selectedItem: this.menuItems[this.currentIndex], text });
         } else if (key.name === "c" && key.ctrl) process.exit(0);
 
         this.renderMenu();
       };
 
       readline.emitKeypressEvents(process.stdin);
-      process.stdin.setRawMode(true);
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(true);
+      }
       process.stdin.on("keypress", handleKeyPress);
       this.renderMenu();
     });

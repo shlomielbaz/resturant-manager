@@ -5,7 +5,7 @@ export default interface IOrder {
     id: string;
     dishes: IDish[];
     table: number;
-    total: number;
-    comment: string;
+    total?: number;
+    comment?: string;
     status: string;
 }

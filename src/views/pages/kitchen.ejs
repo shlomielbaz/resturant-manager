@@ -12,24 +12,21 @@
     <h3>Kitchen View</h3> 
     <ul>
       <% orders.forEach((order)=>{%> 
-        <li data-order-id="<%=order.id%>" class="order-status">
-          Table No.: <%=order.table%>, Status: <%=order.status%>, Dishes List:
-          <ul>
-            <%for(const dish of order.dishes) {%>
-              <li>
-                <%=dish.name%>,
-                Price: <%=dish.price%>,
-                <%=Number(dish.prepareTime) * 1000%>
-              </li>
-            <%}%> 
-          </ul>
-          <button onclick="ordersUpdate('ready')">Ready</button>
-          <button onclick="ordersUpdate('processed')">Processed</button>
-          <br /><br />
-        </li> 
-        <%});%> 
-  </ul> 
-    
+          <li class="order-status">
+            Table No.: <%=order.table%>, Status: <%=order.status%>, Dishes List:
+            <ul>
+              <%for(const dish of order.dishes) {%>
+                <li>
+                  <%=dish.name%>,
+                  <%=Number(dish.prepareTime) * 1000%>
+                </li>
+              <%}%> 
+            </ul>
+            <a href="/orders/<%=order.id%>">Edit Order</a>
+            <br />
+          </li> 
+      <%});%> 
+    </ul> 
   </div>
 </main>
 

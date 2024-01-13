@@ -1,48 +1,60 @@
-import express from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import cors from 'cors';
+import express from "express";
+import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
 
-import * as middlewares from './middlewares';
-import api from './api';
-import MessageResponse from './interfaces/message.response';
-import OrdersService from './services/orders.service';
+import * as middlewares from "./middlewares";
 
-require('dotenv').config();
+const bodyParser = require("body-parser");
+const path = require("path");
+
+import api from "./api";
+import MessageResponse from "./interfaces/message.response";
+import OrdersService from "./services/orders.service";
+import TablesService from "./services/tables.service";
+import DishesService from "./services/dishes.service";
+
+require("dotenv").config();
 
 const app = express();
 
-app.use(morgan('dev'));
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-
-app.set('views', __dirname + '/views');
-// set the view engine to ejs
-app.set('view engine', 'ejs');
-
-
-app.get('/', function(req, res) {
-  res.render('pages/index');
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'nonce-8IBTHwOdqNKAWeKl7plt8g=='"
+  );
+  next();
 });
 
-app.get('/kitchen', function(req, res) {
-  res.render('pages/kitchen', {orders: OrdersService.retrive()});
+// app.use(morgan('dev'));
+// app.use(helmet());
+// app.use(cors());
+// app.use(express.json());
+
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+app.get("/", function (req, res) {
+  res.render("pages/index");
 });
 
-
-app.get('/about', function(req, res) {
-  res.render('pages/about');
+app.get("/kitchen", function (req, res) {
+  res.render("pages/kitchen", { orders: OrdersService.retrive() });
 });
 
+app.get("/resturant", function (req, res) {
+  res.render("pages/resturant", { tables: TablesService.retrive() });
+});
 
-// app.get('/orders/new', function(req, res) {
-//   res.render('pages/orders-new', {orders: OrdersService.createOrder()});
-// });
+app.get("/orders/:key", async (req, res) => {
+  const order = await OrdersService.getOrderById(req.params.key).asJson();
+  
+  res.render("pages/order-edit", { order: order, dishes: DishesService.retrive()});
+});
 
-
-
-app.use('/api/v1', api);
+app.use("/api/v1", api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
