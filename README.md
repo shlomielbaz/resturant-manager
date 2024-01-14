@@ -13,7 +13,7 @@ The kitchen view ilustrate the screen for the kitchen workes, the dished in orde
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/7c76ed00-f7cf-4f4f-8dc0-25a5c56c8936">
 
 <br /><br />
-Order management screen
+Order management screen, every add/remove dish from the order, the total changed accordingly.
 <img width="1110" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/aa0643a1-b496-4fbd-8ae4-3f991954b15d">
 
 <img width="1110" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/2b78aff9-6149-44a4-b39d-144cb6ef49d8">
