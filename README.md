@@ -6,11 +6,11 @@
 
 <br /><br />
 The restaurant view simulates the tables in a restaurant, the disabled tables (buttons) show that these tables are occupied by order
-<img width="1108" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/f101b6df-3878-41b1-b0a7-17b6749e3c07">
-
+<img width="1114" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/ef052bec-3f92-4da0-97ca-afd003d903a1">
 
 <br /><br />
 The kitchen view illustrates the screen for the kitchen workers, the dishes in order are displayed to inform the chef about the dishes in order
+<img width="1108" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/f101b6df-3878-41b1-b0a7-17b6749e3c07">
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/7c76ed00-f7cf-4f4f-8dc0-25a5c56c8936">
 
 <br />
