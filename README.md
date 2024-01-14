@@ -14,6 +14,8 @@ The kitchen view ilustrate the screen for the kitchen workes, the dished in orde
 
 <br />
 Order management screen
+<img width="1110" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/aa0643a1-b496-4fbd-8ae4-3f991954b15d">
+
 <img width="1110" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/2b78aff9-6149-44a4-b39d-144cb6ef49d8">
 
 
