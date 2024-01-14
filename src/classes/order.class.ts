@@ -18,7 +18,8 @@ class Order {
         this._id = randomUUID();
         this._table = TablesService.pickTable(tableNo);
 
-        Dispatcher.subscribe('add-dish-to-order', (name: string, table: string) => console.log(`Add dish ${name} to order in table ${table}`))
+        Dispatcher.subscribe('add-dish-to-order', (name: string, table: string) => console.log(`Add dish ${name} to order in table ${table}`));
+        Dispatcher.subscribe('order-status-changed', (from: any, to: any) => console.log(`Status order changed from '${OrderStatus[from]}' to '${OrderStatus[to]}'`));
     }
 
     public get id() {
@@ -67,9 +68,10 @@ class Order {
     }
 
     public updateStatus(status: OrderStatus) {
-        console.log(`Status order changed from '${OrderStatus[this._status]}' to '${OrderStatus[status]}' in table ${this.table.number}`);
+        Dispatcher.dispatch('add-dish-to-order', [OrderStatus[this._status], OrderStatus[status]])
 
         this._status = status;
+
     }
 
     public getTotal() {
