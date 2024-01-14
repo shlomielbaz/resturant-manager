@@ -6,7 +6,7 @@
 
 <br /><br />
 The restaurant view simulates the tables in a restaurant, the disabled tables (buttons) show that these tables are occupied by order
-<img width="1112" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/78981281-9859-48ef-9166-ca3a3494f4c7">
+<img width="1108" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/f101b6df-3878-41b1-b0a7-17b6749e3c07">
 
 
 <br /><br />
