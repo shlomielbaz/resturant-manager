@@ -9,8 +9,13 @@ The resturant view simulates the tables in a restaurant, the disabled tables (bu
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/43260179-bed8-4c65-b898-503eab856fb1">
 
 <br /><br />
-The kitchen view ilustrate the screen for the kitchen workes, the dished in order are displyed in order to inform the shef about the dishes in order
+The kitchen view illustrates the screen for the kitchen workers, the dishes in order are displayed to inform the chef about the dishes in order
 <img width="1119" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/7c76ed00-f7cf-4f4f-8dc0-25a5c56c8936">
+
+<br />
+The Restaurant view illustrates the screen for the restaurant workers, it displayed the order status
+<img width="1110" alt="image" src="https://github.com/shlomielbaz/resturant-manager/assets/426076/81a23669-d3aa-4af1-8cf8-e58f269abc93">
+
 
 <br /><br />
 Order management screen, every add/remove dish from the order, the total changed accordingly.
