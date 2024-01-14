@@ -4,20 +4,33 @@
   <%- include('../partials/head'); %>
 </head>
 <body class="container">
-
 <header>
   <%- include('../partials/header'); %>
 </header>
-
 <main>
   <div class="jumbotron">
-    <h1>This is great</h1>
-    <p>Welcome to templating using EJS</p>
+    <h3>Resturant View</h3> 
+    <ul>
+      <% orders.forEach((order)=>{
+        const statuses = {
+          0: 'Create',
+          1: 'Ready',
+          2: 'Processed',
+          3: 'Served',
+          4: 'Done'
+        }
+        %> 
+          <li class="order-status">
+            Table No.: <%=order.table%>, Status: <%=statuses[order.status]%>
+          </li> 
+      <%});%> 
+    </ul> 
   </div>
 </main>
 
 <footer>
   <%- include('../partials/footer'); %>
 </footer>
+
 </body>
 </html>

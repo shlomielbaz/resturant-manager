@@ -7,5 +7,5 @@ export default interface IOrder {
     table: number;
     total?: number;
     comment?: string;
-    status: string;
+    status: OrderStatus;
 }

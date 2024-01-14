@@ -54,6 +54,10 @@ app.get("/orders/:key", async (req, res) => {
   res.render("pages/order-edit", { order: order, dishes: DishesService.retrive()});
 });
 
+app.get("/orders", async (req, res) => {
+  res.render("pages/orders", { orders: OrdersService.retrive() });
+});
+
 app.use("/api/v1", api);
 
 app.use(middlewares.notFound);

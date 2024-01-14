@@ -11,9 +11,17 @@
   <div class="jumbotron">
     <h3>Kitchen View</h3> 
     <ul>
-      <% orders.forEach((order)=>{%> 
+      <% orders.forEach((order)=>{
+        const statuses = {
+          0: 'Create',
+          1: 'Ready',
+          2: 'Processed',
+          3: 'Served',
+          4: 'Done'
+        }
+        %> 
           <li class="order-status">
-            Table No.: <%=order.table%>, Status: <%=order.status%>, Dishes List:
+            Table No.: <%=order.table%>, Status: <%=statuses[order.status]%>, Dishes List:
             <ul>
               <%for(const dish of order.dishes) {%>
                 <li>

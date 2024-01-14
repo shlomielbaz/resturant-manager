@@ -45,14 +45,11 @@
                         <td colspan="3">
                             Change Status
                             <select name="status" id="status-select">
-                                <option<%=order.status=='Create' ? ' disabled selected' : '' %>>Create</option>
-                                    <option<%=order.status=='Ready' ? ' disabled selected' : '' %>>Ready</option>
-                                        <option<%=order.status=='Processed' ? ' disabled selected' : '' %>>Processed
-                                            </option>
-                                            <option<%=order.status=='Served' ? ' disabled  selected' : '' %>>Served
-                                                </option>
-                                                <option<%=order.status=='Done' ? ' disabled selected' : '' %>>Done
-                                                    </option>
+                                <option value="0" <%=order.status==0 ? ' disabled selected' : '' %>>Create</option>
+                                <option value="1" <%=order.status==1 ? ' disabled selected' : '' %>>Ready</option>
+                                <option value="2" <%=order.status==2 ? ' disabled selected' : '' %>>Processed</option>
+                                <option value="3" <%=order.status==3 ? ' disabled selected' : '' %>>Served</option>
+                                <option value="4" <%=order.status==4 ? ' disabled selected' : '' %>>Done</option>
                             </select>
                         </td>
                     </tr>
@@ -175,8 +172,9 @@
                     "Content-type": "application/json; charset=UTF-8"
                 }
             })
-                .then((response) => response.json())
-                .then((order) => { location.href = '/orders/' + order.id });
+                .then((response) => {
+                    location.replace('/orders');
+                });
 
         }, false);
     </script>
