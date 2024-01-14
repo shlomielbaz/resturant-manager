@@ -63,7 +63,7 @@ class Order {
     public addDish(dish: Dish) {
        this._dishes.push(dish);
 
-       Dispatcher.dispatch('add-dish-to-order', [dish.name, this.table.number])
+       Dispatcher.dispatch('add-dish-to-order', [dish.name, this._table.number])
     }
 
     public updateStatus(status: OrderStatus) {
